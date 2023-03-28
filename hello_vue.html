@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+
+    <body>
+
+        <div id = "app">
+
+            <!--All parts of the page that Vue manages go here-->
+            <h1>Hello Vue!</h1> <!--Static Code-->
+
+            <p>{{message}}</p> <!--Dynamic Code, will display the message-->
+
+            <p>{{messageWithExcalamationPoints}}</p>
+
+            <p>This class is {{thisClass}}</p>
+
+            <button v-on:click="addExclamation">Add !</button> <!--Kind of like event listener, it will call addExclamation method once done-->
+            <button v-on:click="clear">Clear Exclamations</button>
+
+        </div>
+
+        <script>
+
+            let app = Vue.createApp({
+                data() {
+                    return {
+                        message: 'howdy',
+                        maxExclamationPoints: 10,
+                        exclamationPoints: 0,
+                        thisClass: 'Web Programming'
+                    }
+                },
+                //methods are similar to functions
+                methods: {
+                    addExclamation() {
+                        if (this.exclamationPoints < this.maxExclamationPoints) {
+                            this.exclamationPoints++
+                            // this.message = this.message + '!'
+                            //took this out after adding in the computed section
+                        } else {
+                            alert('You have exclaimed suffiently - no more exclaiming allowed')
+                        }
+                    }, clear() {
+                        // this.message = 'howdy again'
+                        // again this is now being taken care of in the computed section
+                        this.exclamationPoints = 0
+                    }
+                }, computed: {
+                    messageWithExcalamationPoints() {
+                        let messageWithPoints = this.message
+                        for (let x = 0 ; x < this.exclamationPoints ; x++) {
+                            messageWithPoints = messageWithPoints + '!'
+                        }
+                        return messageWithPoints
+                    }
+                }
+            })
+
+            app.mount('#app') //put the script into the app div
+
+        </script>
+
+
+    </body>
+
+</html>

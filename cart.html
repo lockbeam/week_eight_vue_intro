@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/vue@next"></script>
+
+        <style>
+            td, th {
+                width: 25%;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div id = "app">
+
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+
+                <!--Table Data needs to be build with Vue-->
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{unitPrice}}</td>
+                    <td>
+                        <input type="number" id="quantity" v-model.number="quantity">
+                        <div class="error-message" v-if="quantityError">{{quantityError}}</div>
+                        <!--If quantity is outside of a specific range display an error message below this td-->
+                    </td>
+                    <td>
+                        <div v-if="quantityError">
+                            Invalid quantity
+                        </div>
+
+                        <div v-else>
+                        ${{total}}
+                        </div>
+                        <!--Total is displayed only if there is no error-->
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+
+        <script>
+
+            let app = Vue.createApp({
+                data() {
+                    return {
+                        name: 'Hat',
+                        quantity: 1,
+                        unitPrice: 4.99,
+                        maxQuantity: 20,
+                        quantityError: ''
+                    }
+                },
+                computed: {
+                    total() {
+                        //REALIZED ERROR MESSAGING WAS REMAINING AFTER QUANTITY WAS BROUGHT BACK INTO ACCEPTABLE RANGE
+                        //TRIED YOUR CODE WITH SAME ISSUE (LABELLED clara_cart IN MY DIRECTORY)
+                        //REALIZED THE WATCH CART FROM YOUR REPOSITORY WORKS SO I'VE COMMENTED OUT THE CODE BELOW AND MOVED IT TO WATCH
+
+                        // //start with error handling if quantity isn't a number
+                        // if (!Number.isInteger(this.quantity)) {
+                        //     this.quantityError = 'Quantity must be a number please'
+                        // }
+
+                        // //define a range
+                        // else if (this.quantity <= 0 || this.quantity > this.maxQuantity) {
+                        //     this.quantityError = `Quantity must be higher than zero and lower than ${this.maxQuantity}`
+                        // }
+
+                        // //clear any previous error messaging once errors are fixed
+                        // else {
+                        //     this.quantityError = ''
+                        // }
+
+                        // Calculate price code:
+                        let totalPrice = this.quantity * this.unitPrice
+                        //when referrring to any Vue data properties always use this.
+                        let formattedPrice = totalPrice.toFixed(2)
+                        return formattedPrice
+                    }
+                },
+                watch: {
+                    quantity(newQuantity, oldQuantity) {
+                        // I get all of this with the exceptions of why do we need oldQuantity? What is it doing?
+                        // I assume watch does something different than computed? Need to research....
+
+
+                        //start with error handling if quantity isn't a number
+                        if (!Number.isInteger(this.quantity)) {
+                            this.quantityError = 'Quantity must be a number please'
+                        }
+
+                        //define a range
+                        else if (this.quantity <= 0 || this.quantity > this.maxQuantity) {
+                            this.quantityError = `Quantity must be higher than zero and lower than ${this.maxQuantity}`
+                        }
+
+                        //clear any previous error messaging once errors are fixed
+                        else {
+                            this.quantityError = ''
+                        }
+                    }
+                }
+            })
+
+            app.mount('#app')
+
+        </script>
+
+
+    </body>
+
+</html>

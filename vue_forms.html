@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+
+    <body>
+
+        <div id = "app">
+
+            <h1>Hello Vue Forms</h1>
+          
+            <label for="name">Please enter you name: </label>
+            <input v-model="name" id="name">
+
+            <p v-if="name"> <!--If name has a value this message will be rendered, otherwise it won't-->
+                Did I get that right? Your name is {{name}}?
+                <br>
+                <br>
+                <button v-on:click="clear">No - let me try again</button>
+            </p>
+            <!-- v-else needs to go right after v-if-->
+            <p v-else>
+                Waiting for user information
+            </p>
+
+        </div>
+
+        <script>
+
+            let app = Vue.createApp({
+                data() {
+                    return {
+                       name: '' //empty string
+                    }
+                },
+                methods: {
+                    clear() {
+                        this.name = ''
+                    }
+                }
+            })
+
+            app.mount('#app')
+
+        </script>
+
+
+    </body>
+
+</html>
