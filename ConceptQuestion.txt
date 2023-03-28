@@ -1,0 +1,9 @@
+Devin Lockbeam
+VUE INTRO – Week 8
+Concept Question
+2. Property ... was accessed during render but is not defined on instance.  5 points
+What does this Vue warning message mean? Can you safely ignore it? What causes it, and how do you fix it?  Write an answer in your own words. 
+ 
+
+This message means that Vue is running as much of the code as possible and didn’t have a hard stop but is warning the user that there is a property – in this case “total” that is still undefined. It can still display the page and for the most part the page may function but generally it means for a developer that they set a property in (the usually div) section but it still needs to be defined in the Vue script or vice versa. 
+Once the value is defined or the parameter set for where the property needs to display (basically they are connected to each other) than this warning message should go away. Developers can ignore it temporarily while they work through other parts of the code but it’s a reminder that the page will likely not function 100% as intended until the issue is resolved.
